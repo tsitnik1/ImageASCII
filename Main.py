@@ -18,23 +18,10 @@ value_conv = {
     "@" : range(232, 256)
 }
 
-def convert_image():
+def convert_image(name, width):
     try:
-        print("Welcome to image to ASCII converter. Type exit to quit")
-        name = input("Enter full file path: ")
-        if name == "exit":
-            return 0
-
-        width = input("Enter width (higher width means more resolution): ")
-        if width == "exit":
-            return 0
-
-
-
         with Image.open(name) as img:
             img = PIL.ImageOps.grayscale(img)
-
-            print(img.size[1])
 
             px = img.load()
 
@@ -48,10 +35,18 @@ def convert_image():
                 a += "\n"
 
         print(a)
-        return 0
 
     except Exception as e:
         print(e)
 
-while convert_image() != 0:
-    convert_image()
+while True:
+    print("Welcome to image to ASCII converter. Type exit to quit")
+    name_input = input("Enter full file path: ")
+    if name_input == "exit":
+        break
+
+    width_input = input("Enter width (higher width means more resolution): ")
+    if width_input == "exit":
+        break
+
+    convert_image(name_input, int(width_input))
